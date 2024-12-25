@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<style>
+    .change-email-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 2rem;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    
+    .change-email-container h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+    
+    .change-email-form .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .change-email-form button.btn-change-email {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .change-email-form button.btn-change-email:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="change-email-container">
+    <h2>{% trans "Change Email" %}</h2>
+    <form method="POST" action="." class="change-email-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn-change-email">{% trans "Change Email" %}</button>
+    </form>
+</div>
+{% endblock %}

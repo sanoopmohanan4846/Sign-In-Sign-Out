@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load account %}
+{% load allauth %}
+{% block content %}
+
+<style>
+    .confirm-email-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 2rem;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    
+    .confirm-email-container h1 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        color: #333;
+    }
+    
+    .email-confirmation-details {
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        color: #555;
+    }
+    
+    .email-confirmation-details p a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    
+    .email-confirmation-details p a:hover {
+        text-decoration: underline;
+    }
+    
+    .confirm-email-form button.btn-confirm {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .confirm-email-form button.btn-confirm:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="confirm-email-container">
+    <h1>Confirm Your Email Address</h1>
+
+    {% if confirmation %}
+    <div class="email-confirmation-details">
+        {% user_display confirmation.email_address.user as user_display %}
+        {% if can_confirm %}
+            <p>
+                {% blocktrans with confirmation.email_address.email as email %}
+                Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an email address for user <b>{{ user_display }}</b>.
+                {% endblocktrans %}
+            </p>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <form method="post" class="confirm-email-form">
+        {% csrf_token %}
+        <button type="submit" class="btn-confirm">Confirm Email</button>
+    </form>
+</div>
+
+{% endblock content %} 

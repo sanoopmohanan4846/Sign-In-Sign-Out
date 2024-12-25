@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load socialaccount %}
+{% block content %}
+{% load static %}
+
+<<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<style>
+   
+
+/* style.css */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f0f0f0; /* Light grey background */
+}
+form{
+    margin-top: 30px;
+}
+.login-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    width: 500px;
+    text-align: center;
+}
+
+.login-form label {
+    display: block;
+    font-weight: bold;
+    margin: 7px 30px;
+    color: #333;
+    text-align: left;
+}
+
+.login-form .inpfm {
+    
+    width: 400px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    text-align: center;
+}
+
+.login-form .links {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.login-form .links a {
+    font-size: 12px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-form .links a:hover {
+    text-decoration: underline;
+}
+
+.login-form button {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 50%;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.login-form button:hover {
+    background-color: #45a049; /* Darker green */
+}
+
+.social-login {
+    display: flex;
+    justify-content: center;
+}
+
+.social-login a {
+    margin-top: -30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+    
+}
+
+.social-login a img {
+    width: 30px;
+    height: 30px;
+}
+
+.social-login a:hover {
+    background-color: #f0f0f0;
+}
+
+
+</style>
+
+<div class="login-container">
+    <div class="login-form">
+        <form method="post" action="">
+            {% csrf_token %}
+            
+            <label>Username :</label>
+            {% render_field form.login class="inpfm" placeholder="Username" %}<br> 
+            
+            <label>Password :</label>
+            {% render_field form.password class="inpfm" %}
+            
+            <div class="links">
+                <a href="{% url 'account_reset_password' %}">Forgot your password?</a>
+                <a href="{% url 'account_request_login_code' %}">Mail me the code</a>
+            </div>
+            
+            <button type="submit">Login</button>
+        </form>
+
+        <p class="social" style="font-size: 10px;">Login With</p><br>
+
+        <div class="social-login">
+            <a href='{% provider_login_url "google" %}'>
+                <img src="{% static 'img/google.svg' %}">
+                
+            </a>
+            <a href='{% provider_login_url "github" %}'>
+                <img src="{% static 'img/github.svg' %}">
+            </a>
+        </div>
+    </div>
+</div>
+    
+
+{% endblock content %}
